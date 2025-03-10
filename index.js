@@ -23,7 +23,7 @@ const ExpressError = require('./utils/ExpressError');
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelpcamp';
+const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl);
 //mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp');
 
@@ -33,7 +33,7 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: secret
+        secret
     }
 });
 
@@ -114,7 +114,7 @@ app.use(helmet.contentSecurityPolicy({
 
 const sessionConfig = {
     name: 'session',
-    secret: secret,
+    secret,
     resave: false,
     saveUninitialized: true,
     store: store,
